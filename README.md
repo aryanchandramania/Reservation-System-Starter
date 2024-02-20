@@ -58,7 +58,7 @@ To run the application, the following should be installed:
 In the command line run the following: 
 
 ```
-git clone https://github.com/Sidx-sys/Reservation-System-Starter.git
+git clone https://github.com/aryanchandramania/Reservation-System-Starter.git
 # or use SSH link if SSH is configured 
 cd Reservation-System-Starter
 ```
