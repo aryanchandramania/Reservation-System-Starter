@@ -1,10 +1,9 @@
 package flight.reservation.plane;
 
 public class HelicopterFactory extends AirTransportFactory {
-    private final int passengerCapacity;
 
     @Override
-    public AirTransport createAirTransport() {
+    public AirTransport createAirTransport(String model) {
         return new Helicopter(model);
     }
 }
