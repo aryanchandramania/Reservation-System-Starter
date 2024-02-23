@@ -2,6 +2,8 @@ package flight.reservation.payment;
 
 import flight.reservation.payment.strategies.PaymentStrategy;
 
+import java.util.Date;
+
 public class PaymentContext {
     private PaymentStrategy strategy;
 
@@ -9,7 +11,7 @@ public class PaymentContext {
         this.strategy = strategy;
     }
 
-    public void pay(double amount) {
-        strategy.pay(amount);
+    public boolean execute(String number, String cvv, Date expiry, double amount, String email, String password) {
+        strategy.pay(number, cvv, expiry, amount, email, password);
     }
 }

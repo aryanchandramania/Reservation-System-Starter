@@ -1,5 +1,7 @@
 package flight.reservation.payment.strategies;
 
+import java.util.Date;
+
 public interface PaymentStrategy {
-    public void pay(double amount);
+    public boolean pay(String number, String cvv, Date expiry, double amount, String email, String password);
 }
