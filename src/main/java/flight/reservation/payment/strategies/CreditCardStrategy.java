@@ -7,7 +7,6 @@ import java.util.Date;
 public class CreditCardStrategy implements PaymentStrategy {
     
     public boolean pay(String number, String cvv, Date expiry, double amount, String email, String password) {
-        System.out.println("Paying " + amount + " using Credit Card");
         CreditCard creditCard = new CreditCard(number, expiry, cvv);
 
         return processOrderWithCreditCard(creditCard, amount);

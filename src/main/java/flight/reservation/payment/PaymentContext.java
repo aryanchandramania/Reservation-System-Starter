@@ -12,6 +12,6 @@ public class PaymentContext {
     }
 
     public boolean execute(String number, String cvv, Date expiry, double amount, String email, String password) {
-        strategy.pay(number, cvv, expiry, amount, email, password);
+        return strategy.pay(number, cvv, expiry, amount, email, password);
     }
 }
