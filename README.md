@@ -2,6 +2,8 @@
 
 This repository contains a simple application that provides a ticket reservation service for flights and helicopters, It could be extended if you would want to.
 
+*This fork is an experiment in refactoring an existing codebase using various design patterns.*
+
 It contains:
   * Entities for various types of air-travel e.g., 
     descriptions of planes (``flight.reservation.plane.*``), 
