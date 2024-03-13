@@ -82,13 +82,5 @@ public class Customer implements FlightObserver{
     public void updateDepartureTime(Date newDepartureTime) {
         System.out.println("The departure time of one of your flights has been updated to: " + newDepartureTime);
     }
-    
-    public void registerForFlightUpdates(ScheduledFlight flight) {
-        flight.addObserver(this);
-    }
-
-    public void unregisterForFlightUpdates(ScheduledFlight flight) {
-        flight.removeObserver(this);
-    }
 
 }
