@@ -13,20 +13,47 @@ import java.util.List;
 public class ScheduledFlight extends Flight {
 
     private final List<Passenger> passengers;
-    private final Date departureTime;
+    private Date departureTime;
     private double currentPrice = 100;
+
+    // add a list of observers
+    private final List<FlightObserver> observers;
 
     public ScheduledFlight(int number, Airport departure, Airport arrival, Object aircraft, Date departureTime) {
         super(number, departure, arrival, aircraft);
         this.departureTime = departureTime;
         this.passengers = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     public ScheduledFlight(int number, Airport departure, Airport arrival, Object aircraft, Date departureTime, double currentPrice) {
         super(number, departure, arrival, aircraft);
         this.departureTime = departureTime;
         this.passengers = new ArrayList<>();
+        this.observers = new ArrayList<>();
         this.currentPrice = currentPrice;
+    }
+
+    // add an observer to the list of observers
+    public void addObserver(FlightObserver observer) {
+        this.observers.add(observer);
+    }
+
+    // remove an observer from the list of observers
+    public void removeObserver(FlightObserver observer) {
+        this.observers.remove(observer);
+    }   
+
+    // notify all observers
+    public void notifyObservers() {
+        for (FlightObserver observer : this.observers) {
+            observer.updateDepartureTime(this.departureTime);
+        }
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+        this.notifyObservers();
     }
 
     public int getCrewMemberCapacity() throws NoSuchFieldException {
