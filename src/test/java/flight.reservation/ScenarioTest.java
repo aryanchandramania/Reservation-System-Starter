@@ -120,7 +120,7 @@ public class ScenarioTest {
                     assertFalse(order.isClosed());
                     assertEquals(order, customer.getOrders().get(0));
 
-                    boolean isProcessed = order.processOrderWithPayPal(customer.getEmail(), "amanda1985");
+                    boolean isProcessed = order.processOrderWithPayPal(customer.getEmail(), "amanda1985", true);
                     assertTrue(isProcessed);
                     assertTrue(order.isClosed());
                 }

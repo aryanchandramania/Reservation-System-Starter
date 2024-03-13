@@ -4,6 +4,7 @@ import flight.reservation.Customer;
 import flight.reservation.flight.ScheduledFlight;
 import flight.reservation.payment.CreditCard;
 import flight.reservation.payment.Paypal;
+import flight.reservation.payment.TopUpAdapter;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -65,16 +66,26 @@ public class FlightOrder extends Order {
         return card != null && card.isValid();
     }
 
-    public boolean processOrderWithPayPal(String email, String password) throws IllegalStateException {
+    private boolean paypalIsPresentAndValid(Paypal paypal) { return paypal != null && paypal.isValid(); }
+
+    public boolean processOrderWithPayPal(String email, String password, boolean useCreditCard, String number, Date date, String cvv) throws IllegalStateException {
+        Paypal paypal = new Paypal(email, password);
         if (isClosed()) {
             // Payment is already proceeded
             return true;
         }
         // validate payment information
-        if (email == null || password == null || !email.equals(Paypal.DATA_BASE.get(password))) {
+        if (!paypalIsPresentAndValid(paypal)) {
             throw new IllegalStateException("Payment information is not set or not valid.");
         }
-        boolean isPaid = payWithPayPal(email, password, this.getPrice());
+
+        if (useCreditCard) {
+            TopUpAdapter topUpAdapter = new TopUpAdapter(number, date, cvv);
+            topUpAdapter.topUpWallet(paypal, this.getPrice());
+        }
+
+        boolean isPaid = Paypal.payWithPayPal(paypal, this.getPrice());
+
         if (isPaid) {
             this.setClosed();
         }
@@ -96,12 +107,4 @@ public class FlightOrder extends Order {
         }
     }
 
-    public boolean payWithPayPal(String email, String password, double amount) throws IllegalStateException {
-        if (email.equals(Paypal.DATA_BASE.get(password))) {
-            System.out.println("Paying " + getPrice() + " using PayPal.");
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
